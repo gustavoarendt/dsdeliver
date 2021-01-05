@@ -1,32 +1,35 @@
-package com.devsuperior.dsdeliver.entities;
+package com.devsuperior.dsdeliver.dto;
 
-import javax.persistence.*;
+import com.devsuperior.dsdeliver.entities.Product;
+
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
-@Entity
-@Table(name = "tb_product")
-public class Product implements Serializable {
+public class ProductDTO implements Serializable {
     private static final long serialVersionUID=1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private Double price;
     private String description;
     private String imageUri;
 
-    public Product() {
+    public ProductDTO() {
     }
 
-    public Product(Long id, String name, Double price, String description, String imageUri) {
+    public ProductDTO(Long id, String name, Double price, String description, String imageUri) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
         this.imageUri = imageUri;
+    }
+
+    public ProductDTO(Product entity) {
+        id = entity.getId();
+        name = entity.getName();
+        price = entity.getPrice();
+        description = entity.getDescription();
+        imageUri = entity.getImageUri();
     }
 
     public Long getId() {
@@ -69,18 +72,4 @@ public class Product implements Serializable {
         this.imageUri = imageUri;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Product)) return false;
-
-        Product product = (Product) o;
-
-        return id != null ? id.equals(product.id) : product.id == null;
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
 }
